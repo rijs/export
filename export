@@ -1,0 +1,54 @@
+#!/usr/bin/env node
+var utilise = require('utilise')
+  , glob = require('glob').sync
+  , exists = require('fs').existsSync
+  , write = require('fs').writeFileSync
+  , basename = require('path').basename
+  , extname = require('path').extname
+  , resolve = require('path').resolve
+  , relative = require('path').relative
+
+var dir = process.cwd()
+  , root = resolve(dir, process.argv[2] || '')
+  , resources = str(glob(dir+'/dist/**/!(test).{js,css}')
+      .map(resource))
+      .replace(/"require\((.*?)\)"/g, 'require($1)')
+
+write(resolve(root, 'index.js'), 'module.exports = ' + resources)
+
+function resource(path) {
+  var last = basename(path)
+    , extn = extname(path)
+    , name 
+    , body
+    , head 
+    , res
+    , obj
+
+  if (extn == '.js') {
+    name = last.replace('.js', '')
+    body = 'require(\'./'+rel(path)+'\').default || require(\'./'+rel(path)+'\')'
+    obj = require(path).default || require(path)
+    res = is.obj(obj)                         ? (obj.body = body, obj)
+        : exists(path.replace('.js', '.css')) ? { name: name, body: body, headers: { needs: '[css]' } } 
+                                              : { name: name, body: body }
+  }
+
+  if (extn == '.css') {
+    name = last
+    body = file(path)
+    res = { name: name, body: body }
+  }
+
+  return res
+}
+
+function fn(body) {
+  return str(body)
+    .replace(/\\n/g, '\n')
+}
+
+function rel(path) {
+  return relative(root, path)
+    .replace(/\\/g, '\/')
+}

@@ -1,0 +1,15 @@
+{
+  "name": "rijs.export",
+  "version": "0.0.0",
+  "dependencies": {
+    "glob": "^7.0.0",
+    "utilise": "*"
+  },
+  "author": "Pedram Emrouznejad (https://github.com/pemrouz)",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rijs/export.git"
+  },
+  "license": "pemrouz.mit-license.org",
+  "bin": "./export"
+}
