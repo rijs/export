@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-var utilise = require('utilise')
-  , glob = require('glob').sync
-  , exists = require('fs').existsSync
-  , write = require('fs').writeFileSync
+var write    = require('fs').writeFileSync
+  , exists   = require('fs').existsSync
   , basename = require('path').basename
-  , extname = require('path').extname
-  , resolve = require('path').resolve
   , relative = require('path').relative
-
+  , extname  = require('path').extname
+  , resolve  = require('path').resolve
+  , glob     = require('glob').sync
+  , utilise  = require('utilise')
+  
 var dir = process.cwd()
   , root = resolve(dir, process.argv[2] || '')
   , resources = str(glob(dir+'/dist/**/!(test).{js,css}')
@@ -29,7 +29,7 @@ function resource(path) {
     name = last.replace('.js', '')
     body = 'require(\'./'+rel(path)+'\').default || require(\'./'+rel(path)+'\')'
     obj = require(path).default || require(path)
-    res = is.obj(obj)                         ? (obj.body = body, obj)
+    res = is.obj(obj)                         ? body
         : exists(path.replace('.js', '.css')) ? { name: name, body: body, headers: { needs: '[css]' } } 
                                               : { name: name, body: body }
   }
