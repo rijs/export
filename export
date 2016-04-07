@@ -13,6 +13,8 @@ var dir = process.cwd()
   , resources = str(glob(dir+'/dist/**/!(test).{js,css}')
       .map(resource))
       .replace(/"require\((.*?)\)"/g, 'require($1)')
+      .replace(/({"name")/g, '\n$1')
+      .replace(/([^:\s])(require\()/g, '$1\n$2')
 
 write(resolve(root, 'index.js'), 'module.exports = ' + resources)
 
