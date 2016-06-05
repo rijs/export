@@ -8,9 +8,8 @@ var write    = require('fs').writeFileSync
   , glob     = require('glob').sync
   , utilise  = require('utilise')
   
-var dir = process.cwd()
-  , root = resolve(dir, process.argv[2] || '')
-  , resources = str(glob(dir+'/dist/**/!(test).{js,css}')
+var root = resolve(process.cwd(), process.argv[2] || 'dist/resources')
+  , resources = str(glob(root+'/**/!(test|index).{js,css}')
       .map(resource))
       .replace(/"require\((.*?)\)"/g, 'require($1)')
       .replace(/({"name")/g, '\n$1')
