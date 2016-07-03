@@ -3,6 +3,7 @@
   "version": "0.0.7",
   "dependencies": {
     "glob": "^7.0.0",
+    "js-beautify": "^1.6.3",
     "utilise": "*"
   },
   "author": "Pedram Emrouznejad (https://github.com/pemrouz)",
@@ -11,8 +12,5 @@
     "url": "git://github.com/rijs/export.git"
   },
   "license": "pemrouz.mit-license.org",
-  "bin": "./export",
-  "devDependencies": {
-    "js-beautify": "^1.6.3"
-  }
+  "bin": "./export"
 }
