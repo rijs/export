@@ -1,6 +1,6 @@
 {
   "name": "rijs.export",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "dependencies": {
     "glob": "^7.0.0",
     "utilise": "*"
