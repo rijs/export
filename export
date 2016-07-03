@@ -7,13 +7,13 @@ var write    = require('fs').writeFileSync
   , resolve  = require('path').resolve
   , glob     = require('glob').sync
   , utilise  = require('utilise')
-  
+  , beautify = require('js-beautify').js_beautify
+
 var root = resolve(process.cwd(), process.argv[2] || 'dist/resources')
-  , resources = str(glob(root+'/**/!(test|index).{js,css}')
-      .map(resource))
+  , resources = beautify(str(glob(root+'/**/!(test|index).{js,css}')
+      .map(resource)
+      .reduce(to.obj('name'), {})))
       .replace(/"require\((.*?)\)"/g, 'require($1)')
-      .replace(/({"name")/g, '\n$1')
-      .replace(/([^:\s])(require\()/g, '$1\n$2')
 
 write(resolve(root, 'index.js'), 'module.exports = ' + resources)
 
@@ -42,11 +42,6 @@ function resource(path) {
   }
 
   return res
-}
-
-function fn(body) {
-  return str(body)
-    .replace(/\\n/g, '\n')
 }
 
 function rel(path) {

@@ -11,5 +11,8 @@
     "url": "git://github.com/rijs/export.git"
   },
   "license": "pemrouz.mit-license.org",
-  "bin": "./export"
+  "bin": "./export",
+  "devDependencies": {
+    "js-beautify": "^1.6.3"
+  }
 }
