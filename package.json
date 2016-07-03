@@ -1,6 +1,6 @@
 {
   "name": "rijs.export",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "dependencies": {
     "glob": "^7.0.0",
     "js-beautify": "^1.6.3",
