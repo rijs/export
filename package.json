@@ -15,5 +15,8 @@
     "test": "tap ./test.js"
   },
   "license": "pemrouz.mit-license.org",
-  "bin": "./export"
+  "bin": "./export",
+  "devDependencies": {
+    "tap": "^7.1.2"
+  }
 }
