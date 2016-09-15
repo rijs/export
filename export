@@ -12,10 +12,15 @@ var write    = require('fs').writeFileSync
 var root = resolve(process.cwd(), process.argv[2] || 'dist/resources')
   , resources = beautify(str(glob(root+'/**/!(test|index).{js,css}')
       .map(resource)
-      .reduce(to.obj('name'), {})))
+      .reduce(byname, {})))
       .replace(/"require\((.*?)\)"/g, 'require($1)')
 
 write(resolve(root, 'index.js'), 'module.exports = ' + resources)
+
+function byname(p, v) {
+  p[v[0]] = v[1]
+  return p
+}
 
 function resource(path) {
   var last = basename(path)
@@ -41,7 +46,7 @@ function resource(path) {
     res = { name: name, body: body }
   }
 
-  return res
+  return [name, res]
 }
 
 function rel(path) {

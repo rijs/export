@@ -11,6 +11,9 @@
     "type": "git",
     "url": "git://github.com/rijs/export.git"
   },
+  "scripts": {
+    "test": "tap ./test.js"
+  },
   "license": "pemrouz.mit-license.org",
   "bin": "./export"
 }
